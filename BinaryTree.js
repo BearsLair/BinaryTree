@@ -6,6 +6,13 @@ class Node {
     }
 }
 
+export class BinaryTree {
+    constructor (arr) {
+        this.arr = arr;
+        this.length = 0;
+    }
+}
+
 const node = new Node("dog", null, null);
 
 console.log(node);
