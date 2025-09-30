@@ -1,8 +1,8 @@
 class Node {
-  constructor(data, leftNode = null, rightNode = null) {
+  constructor(data) {
     this.data = data;
-    this.left = leftNode;
-    this.right = rightNode;
+    this.left = null;
+    this.right = null;
   }
 }
 
@@ -16,13 +16,18 @@ class Tree {
     const noDuplicates = new Set(this.array);
     const newArray = [...noDuplicates];
     const arr = newArray.sort((a, b) => a - b);
-    console.log("array recursion is done on: ", arr);
-    this.recursiveTree(arr);
+    this.root = this.recursiveTree(arr, 0, arr.length - 1);
   }
 
   recursiveTree(arr, start, end) {
-    const root = arr[Math.floor((arr.length - 1) / 2)];
-    console.log("middle: ", root);
+    if (start > end) return null;
+    let mid = start + Math.floor((end - start) / 2);
+    let root = new Node(arr[mid]);
+
+    root.left = this.recursiveTree(arr, start, mid - 1);
+    root.right = this.recursiveTree(arr, mid + 1, end);
+
+    return root;
   }
 }
 
@@ -30,4 +35,4 @@ const tree = new Tree([17, 12, 1, 5, 3, 7, 11, 5, 17, 3]);
 
 tree.buildTree();
 
-console.log("tree after build: ", tree);
+console.log(tree);
