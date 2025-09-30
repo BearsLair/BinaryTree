@@ -16,6 +16,7 @@ class Tree {
     const noDuplicates = new Set(this.array);
     const newArray = [...noDuplicates];
     const arr = newArray.sort((a, b) => a - b);
+    console.log("Array: ", arr);
     this.root = this.recursiveTree(arr, 0, arr.length - 1);
   }
 
@@ -35,4 +36,18 @@ const tree = new Tree([17, 12, 1, 5, 3, 7, 11, 5, 17, 3]);
 
 tree.buildTree();
 
-console.log(tree);
+// Function to visualize tree:
+const prettyPrint = (node, prefix = "", isLeft = true) => {
+  if (node === null) {
+    return;
+  }
+  if (node.right !== null) {
+    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+  }
+  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+  if (node.left !== null) {
+    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+  }
+};
+
+prettyPrint(tree.root);
