@@ -30,9 +30,29 @@ class Tree {
 
     return root;
   }
+
+  insert(value) {
+    let current = this.root;
+    let nextLeft = null;
+    let nextRight = null;
+
+    while (current != null) {
+      if (current.data < value) {
+        current = current.left;
+      }
+      if (current.data > value) {
+        current = current.right;
+      }
+    }
+  }
+
+  delete(value) {}
 }
 
-const tree = new Tree([17, 12, 1, 5, 3, 7, 11, 5, 17, 3]);
+const tree = new Tree([
+  15, 29, 2, 19, 16, 8, 32, 22, 29, 83, 75, 98, 19, 32, 45, 48, 62, 92, 32, 59,
+  73, 8, 29, 54, 91, 6, 72, 95, 7, 1,
+]);
 
 tree.buildTree();
 
