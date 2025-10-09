@@ -30,6 +30,7 @@ class Tree {
     return root;
   }
 
+  // TODO: What to do if value already exists
   insert(value) {
     // Create new leaf node
     const newValue = new Node(value);
@@ -132,16 +133,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const tree = new Tree([1, 3, 5, 7, 9, 15, 21]);
 
 tree.buildTree();
-
-console.log(tree.array);
-
-prettyPrint(tree.root);
-
-console.log("New tree after deletion(s): ");
-
-tree.deleteItem(3);
-tree.deleteItem(15);
-tree.deleteItem(21);
-tree.deleteItem(7);
 
 prettyPrint(tree.root);
