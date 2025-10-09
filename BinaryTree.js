@@ -32,27 +32,36 @@ class Tree {
   }
 
   insert(value) {
+    // Create new leaf node
+    const newValue = new Node(value);
     let current = this.root;
-    let nextLeft = null;
-    let nextRight = null;
+    let parent = null;
 
+    // Find where to put leaf node on tree
     while (current != null) {
-      if (current.data < value) {
+      parent = current;
+      console.log("Value to insert:", value, "/ current.data: ", current.data);
+      if (value < current.data) {
         current = current.left;
-      }
-      if (current.data > value) {
+        console.log("go left");
+      } else if (value > current.data) {
         current = current.right;
+        console.log("go right");
       }
     }
-  }
 
-  delete(value) {}
+    if (newValue.data < parent.data) {
+      parent.left = newValue;
+    } else {
+      parent.right = newValue;
+    }
+    // this.current = newValue;
+    return newValue;
+  }
+  // delete(value) {}
 }
 
-const tree = new Tree([
-  15, 29, 2, 19, 16, 8, 32, 22, 29, 83, 75, 98, 19, 32, 45, 48, 62, 92, 32, 59,
-  73, 8, 29, 54, 91, 6, 72, 95, 7, 1,
-]);
+const tree = new Tree([1, 3, 5, 7, 9, 15, 21]);
 
 tree.buildTree();
 
@@ -69,5 +78,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
 };
+
+prettyPrint(tree.root);
+
+tree.insert(2);
+
+console.log("New tree after insertion: ");
 
 prettyPrint(tree.root);
