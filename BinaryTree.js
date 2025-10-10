@@ -114,6 +114,24 @@ class Tree {
     }
     return current.data;
   }
+
+  find(value) {
+    let current = this.root;
+
+    while (current != null) {
+      if (current == null) return;
+
+      if (current.data == value) {
+        return current;
+      }
+
+      if (value < current.data) {
+        current = current.left;
+      } else if (value > current.data) {
+        current = current.right;
+      }
+    }
+  }
 }
 
 // Function to visualize tree:
@@ -135,3 +153,7 @@ const tree = new Tree([1, 3, 5, 7, 9, 15, 21]);
 tree.buildTree();
 
 prettyPrint(tree.root);
+
+console.log(tree.find(9));
+console.log(tree.find(7));
+console.log(tree.find(15));
