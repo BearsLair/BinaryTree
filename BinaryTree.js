@@ -132,6 +132,24 @@ class Tree {
       }
     }
   }
+
+  levelOrderForEach(callback) {
+    if (callback == null) {
+      console.error("Callback needed");
+      return;
+    }
+
+    let queue = [];
+    // const userCallBack = callback;
+    // let currentNode = null;
+    // let leftChild = null;
+    // let rightChild = null;
+    // let result = 0;
+
+    while()
+
+    console.log(queue);
+  }
 }
 
 // Function to visualize tree:
@@ -154,6 +172,6 @@ tree.buildTree();
 
 prettyPrint(tree.root);
 
-console.log(tree.find(9));
-console.log(tree.find(7));
-console.log(tree.find(15));
+let call = 5;
+
+tree.levelOrderForEach(call);
