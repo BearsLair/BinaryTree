@@ -139,14 +139,33 @@ class Tree {
       return;
     }
 
-    let queue = [];
-    // const userCallBack = callback;
+    let childQueue = [this.root.data];
+    let workingQueue = [];
+    const userCallBack = callback;
     // let currentNode = null;
     // let leftChild = null;
     // let rightChild = null;
     // let result = 0;
 
-    while()
+    while (childQueue.length != 0) {
+      workingQueue = [];
+      childQueue.map((item) => {
+        workingQueue.push(item);
+      });
+
+      childQueue = [];
+
+      // TODO: REMOVE NULLS???
+      workingQueue.map((item) => {
+        if (item != null) {
+          let node = this.find(item);
+          childQueue.push(node.left);
+          childQueue.push(node.right);
+
+          node.data = userCallBack(node.data);
+        }
+      });
+    }
 
     console.log(queue);
   }
