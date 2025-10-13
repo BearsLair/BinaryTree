@@ -222,7 +222,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const tree = new Tree([1, 3, 5, 7, 9, 15, 21]);
+// const tree = new Tree([1, 3, 5, 7, 9, 15, 21]);
+
+const tree = new Tree([
+  3, 9, 7, 18, 15, 25, 6, 29, 32, 1, 3, 5, 19, 4, 23, 32, 17,
+]);
 
 tree.buildTree();
 
