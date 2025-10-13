@@ -133,79 +133,7 @@ class Tree {
     }
   }
 
-  levelOrderForEach(callback) {
-    const callbackFunc = callback;
-
-    let queue = [];
-
-    const nodesInTree = (node) => {
-      if (node == null) return;
-
-      queue.push(node.data);
-
-      nodesInTree(node.left);
-      nodesInTree(node.right);
-
-      return queue;
-    };
-
-    nodesInTree(this.root);
-
-    let orderedQueue = [this.root.data];
-    let itemIndex = 0;
-    let children = [];
-
-    while (queue.length > 0) {
-      if (orderedQueue.length == 1) {
-        itemIndex = queue.indexOf(this.root.data);
-        queue.splice(itemIndex, 1);
-
-        orderedQueue.push(this.root.left.data);
-        children.push(this.root.left.data);
-        itemIndex = queue.indexOf(this.root.left.data);
-        queue.splice(itemIndex, 1);
-
-        children.push(this.root.right.data);
-        orderedQueue.push(this.root.right.data);
-        itemIndex = queue.indexOf(this.root.right.data);
-        queue.splice(itemIndex, 1);
-      }
-      let childrenRemoved = 0;
-
-      children.map((num) => {
-        let node = this.find(num);
-
-        // Push left children to orderedQueue
-        children.push(node.left.data);
-        orderedQueue.push(node.left.data);
-        itemIndex = queue.indexOf(node.left.data);
-        queue.splice(itemIndex, 1);
-        childrenRemoved++;
-
-        // Push right children to orderedQueue
-        children.push(node.right.data);
-        orderedQueue.push(node.right.data);
-        itemIndex = queue.indexOf(node.right.data);
-        queue.splice(itemIndex, 1);
-        childrenRemoved++;
-      });
-
-      // Remove parents from child queue
-      for (let i = 0; i < childrenRemoved + 1; i++) {
-        children.shift();
-      }
-    }
-
-    const orderedArray = orderedQueue.map((item) => {
-      return callbackFunc(item);
-    });
-
-    console.log(orderedArray);
-
-    this.array = orderedArray;
-    this.root = null;
-    this.buildTree();
-  }
+  levelOrderForEach(callback) {}
 }
 
 // Function to visualize tree:
@@ -232,6 +160,8 @@ tree.buildTree();
 
 prettyPrint(tree.root);
 
-tree.levelOrderForEach((num) => num + 2);
+tree.levelOrderForEach((num) => {
+  return num + 2;
+});
 
 prettyPrint(tree.root);
