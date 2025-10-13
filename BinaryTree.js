@@ -209,5 +209,3 @@ prettyPrint(tree.root);
 // });
 
 console.log(tree.levelOrderTraversal());
-
-prettyPrint(tree.root);
