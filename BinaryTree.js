@@ -196,13 +196,14 @@ class Tree {
       }
     }
 
-    console.log(orderedQueue);
-
-    orderedQueue.map((item) => {
-      callbackFunc(item);
+    const orderedArray = orderedQueue.map((item) => {
+      return callbackFunc(item);
     });
 
-    this.array = orderedQueue;
+    console.log(orderedArray);
+
+    this.array = orderedArray;
+    this.root = null;
     this.buildTree();
   }
 }
@@ -227,6 +228,6 @@ tree.buildTree();
 
 prettyPrint(tree.root);
 
-tree.levelOrderForEach((item) => item + 2);
+tree.levelOrderForEach((num) => num + 2);
 
 prettyPrint(tree.root);
