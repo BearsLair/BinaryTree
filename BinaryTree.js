@@ -134,40 +134,76 @@ class Tree {
   }
 
   levelOrderForEach(callback) {
-    if (callback == null) {
-      console.error("Callback needed");
-      return;
-    }
+    const callbackFunc = callback;
 
-    let childQueue = [this.root.data];
-    let workingQueue = [];
-    const userCallBack = callback;
-    // let currentNode = null;
-    // let leftChild = null;
-    // let rightChild = null;
-    // let result = 0;
+    let queue = [];
 
-    while (childQueue.length != 0) {
-      workingQueue = [];
-      childQueue.map((item) => {
-        workingQueue.push(item);
+    const nodesInTree = (node) => {
+      if (node == null) return;
+
+      queue.push(node.data);
+
+      nodesInTree(node.left);
+      nodesInTree(node.right);
+
+      return queue;
+    };
+
+    nodesInTree(this.root);
+
+    let orderedQueue = [this.root.data];
+    let itemIndex = 0;
+    let children = [];
+
+    while (queue.length > 0) {
+      if (orderedQueue.length == 1) {
+        itemIndex = queue.indexOf(this.root.data);
+        queue.splice(itemIndex, 1);
+
+        orderedQueue.push(this.root.left.data);
+        children.push(this.root.left.data);
+        itemIndex = queue.indexOf(this.root.left.data);
+        queue.splice(itemIndex, 1);
+
+        children.push(this.root.right.data);
+        orderedQueue.push(this.root.right.data);
+        itemIndex = queue.indexOf(this.root.right.data);
+        queue.splice(itemIndex, 1);
+      }
+      let childrenRemoved = 0;
+
+      children.map((num) => {
+        let node = this.find(num);
+
+        // Push left children to orderedQueue
+        children.push(node.left.data);
+        orderedQueue.push(node.left.data);
+        itemIndex = queue.indexOf(node.left.data);
+        queue.splice(itemIndex, 1);
+        childrenRemoved++;
+
+        // Push right children to orderedQueue
+        children.push(node.right.data);
+        orderedQueue.push(node.right.data);
+        itemIndex = queue.indexOf(node.right.data);
+        queue.splice(itemIndex, 1);
+        childrenRemoved++;
       });
 
-      childQueue = [];
-
-      // TODO: REMOVE NULLS???
-      workingQueue.map((item) => {
-        if (item != null) {
-          let node = this.find(item);
-          childQueue.push(node.left);
-          childQueue.push(node.right);
-
-          node.data = userCallBack(node.data);
-        }
-      });
+      // Remove parents from child queue
+      for (let i = 0; i < childrenRemoved + 1; i++) {
+        children.shift();
+      }
     }
 
-    console.log(queue);
+    console.log(orderedQueue);
+
+    orderedQueue.map((item) => {
+      callbackFunc(item);
+    });
+
+    this.array = orderedQueue;
+    this.buildTree();
   }
 }
 
@@ -191,6 +227,6 @@ tree.buildTree();
 
 prettyPrint(tree.root);
 
-let call = 5;
+tree.levelOrderForEach((item) => item + 2);
 
-tree.levelOrderForEach(call);
+prettyPrint(tree.root);
