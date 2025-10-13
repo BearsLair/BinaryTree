@@ -116,12 +116,18 @@ class Tree {
   }
 
   find(value) {
+    console.log("FIND METHOD is accessed");
+    console.log("Value passed to FIND METHOD", value);
     let current = this.root;
+
+    console.log("Current in FIND METHOD: ", current);
+    console.log("Current.data: ", current.data);
 
     while (current != null) {
       if (current == null) return;
 
       if (current.data == value) {
+        console.log("should return here");
         return current;
       }
 
@@ -134,6 +140,44 @@ class Tree {
   }
 
   levelOrderForEach(callback) {}
+
+  levelOrderTraversal(root = [this.root.data], nodes = []) {
+    if (root.length == 0) return nodes;
+
+    let children = [];
+
+    console.log("----------------");
+    console.log("root: ", root);
+    console.log("nodes: ", nodes);
+    console.log("----------------");
+
+    // Add root data to nodes
+    root.map((item) => {
+      nodes.push(item);
+    });
+
+    console.log("nodes after push: ", nodes);
+
+    root.map((item) => {
+      // Get node containing children
+      let currentNode = this.find(item);
+      console.log("currentNode: ", currentNode);
+
+      // Children added children to nodes and children arrays
+      if (currentNode.left != null) {
+        children.push(currentNode.left.data);
+      }
+      if (currentNode.right != null) {
+        children.push(currentNode.right.data);
+      }
+    });
+
+    console.log("children pushed to nodes array: ", nodes);
+    console.log("children added: ", children);
+    console.log("----------------");
+
+    return this.levelOrderTraversal(children, nodes);
+  }
 }
 
 // Function to visualize tree:
@@ -160,8 +204,10 @@ tree.buildTree();
 
 prettyPrint(tree.root);
 
-tree.levelOrderForEach((num) => {
-  return num + 2;
-});
+// tree.levelOrderForEach((num) => {
+//   return num + 2;
+// });
+
+console.log(tree.levelOrderTraversal());
 
 prettyPrint(tree.root);
