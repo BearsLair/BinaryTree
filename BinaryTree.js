@@ -278,8 +278,8 @@ tree.buildTree();
 
 prettyPrint(tree.root);
 
-tree.preOrderForEach((num) => {
-  return num + 2;
-});
+// tree.preOrderForEach((num) => {
+//   return num + 2;
+// });
 
-prettyPrint(tree.root);
+// prettyPrint(tree.root);
