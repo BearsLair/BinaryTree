@@ -133,7 +133,18 @@ class Tree {
     }
   }
 
-  levelOrderForEach(callback) {}
+  levelOrderForEach(callback) {
+    const userCallback = callback;
+    const orderedArray = this.levelOrderTraversal();
+
+    const updatedArray = orderedArray.map((item) => {
+      return userCallback(item);
+    });
+
+    this.array = updatedArray;
+
+    this.buildTree();
+  }
 
   levelOrderTraversal(root = [this.root.data], nodes = []) {
     // Base case. Return completed node array to beginning of recursive stack
@@ -180,19 +191,15 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 // TESTING STUFF
 
 const tree = new Tree([
-  3, 5, 7, 9, 13, 15, 25, 32, 55, 75, 2, 19, 22, 25, 88, 99, 66,
+  3, 9, 7, 18, 15, 25, 6, 29, 32, 1, 3, 5, 19, 4, 23, 32, 17,
 ]);
-// const tree = new Tree([1, 3, 5, 7, 9, 15, 21]);
-// const tree = new Tree([
-//   3, 9, 7, 18, 15, 25, 6, 29, 32, 1, 3, 5, 19, 4, 23, 32, 17,
-// ]);
 
 tree.buildTree();
 
 prettyPrint(tree.root);
 
-// tree.levelOrderForEach((num) => {
-//   return num + 2;
-// });
+tree.levelOrderForEach((num) => {
+  return num + 2;
+});
 
-console.log(tree.levelOrderTraversal());
+prettyPrint(tree.root);
