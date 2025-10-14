@@ -149,6 +149,26 @@ class Tree {
     this.buildTree();
   }
 
+  preOrderForEach(callback) {
+    if (callback == null || typeof callback != "function") {
+      throw new Error("Parameter is not a function!");
+    }
+    const userCallback = callback;
+    const orderedArray = this.preOrderTraversal();
+
+    const updatedArray = orderedArray.map((item) => {
+      return userCallback(item);
+    });
+
+    this.array = updatedArray;
+
+    this.buildTree();
+  }
+
+  inOrderForEach(callback) {}
+
+  postOrderforEach(callback) {}
+
   levelOrderTraversal(root = [this.root.data], nodes = []) {
     // Base case. Return completed node array to beginning of recursive stack
     if (root.length == 0) return nodes;
@@ -175,6 +195,33 @@ class Tree {
     // Recursively obtain children of parent nodes and add them to nodes array
     return this.levelOrderTraversal(children, nodes);
   }
+
+  preOrderTraversal(root = this.root.data, nodes = []) {
+    if (root == null) return;
+
+    nodes.push(root);
+
+    let children = [];
+
+    const currentNode = this.find(root);
+
+    if (currentNode.left != null) {
+      children.push(currentNode.left.data);
+    }
+    if (currentNode.right != null) {
+      children.push(currentNode.right.data);
+
+      children.map((data) => {
+        this.preOrderTraversal(data, nodes);
+      });
+
+      return nodes;
+    }
+  }
+
+  inOrderTraversal() {}
+
+  postOrderTraversal() {}
 }
 
 // Function to visualize tree:
@@ -201,7 +248,7 @@ tree.buildTree();
 
 prettyPrint(tree.root);
 
-tree.levelOrderForEach((num) => {
+tree.preOrderForEach((num) => {
   return num + 2;
 });
 
