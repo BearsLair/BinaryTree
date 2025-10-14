@@ -116,18 +116,12 @@ class Tree {
   }
 
   find(value) {
-    console.log("FIND METHOD is accessed");
-    console.log("Value passed to FIND METHOD", value);
     let current = this.root;
-
-    console.log("Current in FIND METHOD: ", current);
-    console.log("Current.data: ", current.data);
 
     while (current != null) {
       if (current == null) return;
 
       if (current.data == value) {
-        console.log("should return here");
         return current;
       }
 
