@@ -165,9 +165,37 @@ class Tree {
     this.buildTree();
   }
 
-  inOrderForEach(callback) {}
+  inOrderForEach(callback) {
+    if (callback == null || typeof callback != "function") {
+      throw new Error("Parameter is not a function!");
+    }
+    const userCallback = callback;
+    const orderedArray = this.inOrderTraversal();
 
-  postOrderforEach(callback) {}
+    const updatedArray = orderedArray.map((item) => {
+      return userCallback(item);
+    });
+
+    this.array = updatedArray;
+
+    this.buildTree();
+  }
+
+  postOrderforEach(callback) {
+    if (callback == null || typeof callback != "function") {
+      throw new Error("Parameter is not a function!");
+    }
+    const userCallback = callback;
+    const orderedArray = this.postOrderTraversal();
+
+    const updatedArray = orderedArray.map((item) => {
+      return userCallback(item);
+    });
+
+    this.array = updatedArray;
+
+    this.buildTree();
+  }
 
   levelOrderTraversal(root = [this.root.data], nodes = []) {
     // Base case. Return completed node array to beginning of recursive stack
@@ -219,7 +247,9 @@ class Tree {
     }
   }
 
-  inOrderTraversal() {}
+  inOrderTraversal(root = this.root.data, nodes = []) {
+    if (root == null) return;
+  }
 
   postOrderTraversal() {}
 }
