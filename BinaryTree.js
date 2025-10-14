@@ -142,26 +142,18 @@ class Tree {
   levelOrderForEach(callback) {}
 
   levelOrderTraversal(root = [this.root.data], nodes = []) {
+    // Base case. Return completed node array to beginning of recursive stack
     if (root.length == 0) return nodes;
 
     let children = [];
-
-    console.log("----------------");
-    console.log("root: ", root);
-    console.log("nodes: ", nodes);
-    console.log("----------------");
-
     // Add root data to nodes
     root.map((item) => {
       nodes.push(item);
     });
 
-    console.log("nodes after push: ", nodes);
-
     root.map((item) => {
       // Get node containing children
       let currentNode = this.find(item);
-      console.log("currentNode: ", currentNode);
 
       // Children added children to nodes and children arrays
       if (currentNode.left != null) {
@@ -172,10 +164,7 @@ class Tree {
       }
     });
 
-    console.log("children pushed to nodes array: ", nodes);
-    console.log("children added: ", children);
-    console.log("----------------");
-
+    // Recursively obtain children of parent nodes and add them to nodes array
     return this.levelOrderTraversal(children, nodes);
   }
 }
@@ -194,11 +183,15 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-// const tree = new Tree([1, 3, 5, 7, 9, 15, 21]);
+// TESTING STUFF
 
 const tree = new Tree([
-  3, 9, 7, 18, 15, 25, 6, 29, 32, 1, 3, 5, 19, 4, 23, 32, 17,
+  3, 5, 7, 9, 13, 15, 25, 32, 55, 75, 2, 19, 22, 25, 88, 99, 66,
 ]);
+// const tree = new Tree([1, 3, 5, 7, 9, 15, 21]);
+// const tree = new Tree([
+//   3, 9, 7, 18, 15, 25, 6, 29, 32, 1, 3, 5, 19, 4, 23, 32, 17,
+// ]);
 
 tree.buildTree();
 
