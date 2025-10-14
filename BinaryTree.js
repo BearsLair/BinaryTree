@@ -134,6 +134,9 @@ class Tree {
   }
 
   levelOrderForEach(callback) {
+    if (callback == null || typeof callback != "function") {
+      throw new Error("Parameter is not a function!");
+    }
     const userCallback = callback;
     const orderedArray = this.levelOrderTraversal();
 
