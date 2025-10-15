@@ -247,8 +247,39 @@ class Tree {
     }
   }
 
-  inOrderTraversal(root = this.root.data, nodes = []) {
-    if (root == null) return;
+  inOrderTraversal(root = this.root, nodes = []) {
+    if (current.left == null && current.right == null) {
+      return current.data;
+    }
+
+    visitLater = [];
+    current = root.left;
+
+    while (current.left != null) {
+      // visitLater = [1, 3, 5]
+      visitLater.unshift(current.data);
+    }
+
+    let node = null;
+
+    // Visit left side of root
+    visitLater.map((item) => {
+      nodes.push(item);
+      node = this.find(item);
+      if (node.right != null) {
+        nodes.push(...this.inOrderTraversal(node.right));
+      }
+    });
+
+    // Visit Center (Root)
+    nodes.push(root.data);
+
+    // Visit right side of root
+    if (root.right != null) {
+      nodes.push(...this.inOrderTraversal(root.right));
+    }
+
+    return nodes;
   }
 
   postOrderTraversal() {}

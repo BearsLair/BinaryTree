@@ -1,11 +1,3 @@
-levelOrderTraversal((root = [this.root.data]), (nodes = []));
-levelOrderTraversal((root = [5, 23]), (nodes = [15]));
-levelOrderTraversal((root = [3, 7, 18, 29]), (nodes = [15, 5, 23]));
-levelOrderTraversal(
-  (root = [4, 1, 6, 9, 17, 19, 25, 32]),
-  (nodes = [15, 5, 23, 3, 7, 18, 29])
-);
-levelOrderTraversal(
-  (root = []),
-  (nodes = [15, 5, 23, 3, 7, 18, 29, 4, 1, 6, 9, 17, 19, 25, 32])
-);
+visitLater = [17, 18, 23];
+
+nodes = [1, 3, 4, 5, 6, 7, 9, 15, 17, 18, 19, 23, 25, 29, 32];
