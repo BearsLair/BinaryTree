@@ -247,22 +247,24 @@ class Tree {
     }
   }
 
-  inOrderTraversal(root = this.root, nodes = []) {
-    if (current.left == null && current.right == null) {
-      return current.data;
+  inOrderTraversal(root = this.root) {
+    // Recursive base case
+    if (root.left == null && root.right == null) {
+      return [root.data];
     }
 
-    visitLater = [];
-    current = root.left;
+    let nodes = [];
+    let visitLater = [];
+    let current = root.left;
 
-    while (current.left != null) {
-      // visitLater = [1, 3, 5]
+    while (current != null) {
       visitLater.unshift(current.data);
+      current = current.left;
     }
 
     let node = null;
 
-    // Visit left side of root
+    // Visit left side from root
     visitLater.map((item) => {
       nodes.push(item);
       node = this.find(item);
@@ -274,7 +276,7 @@ class Tree {
     // Visit Center (Root)
     nodes.push(root.data);
 
-    // Visit right side of root
+    // Visit right side from root
     if (root.right != null) {
       nodes.push(...this.inOrderTraversal(root.right));
     }
@@ -301,13 +303,19 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 // TESTING STUFF
 
+// const tree = new Tree([
+//   3, 9, 7, 18, 15, 25, 6, 29, 32, 1, 3, 5, 19, 4, 23, 32, 17
+// ]);
+
 const tree = new Tree([
-  3, 9, 7, 18, 15, 25, 6, 29, 32, 1, 3, 5, 19, 4, 23, 32, 17,
+  19, 25, 55, 93, 22, 25, 18, 7, 19, 3, 5, 7, 1, 9, 47, 85, 52, 23,
 ]);
 
 tree.buildTree();
 
 prettyPrint(tree.root);
+
+console.log(tree.inOrderTraversal());
 
 // tree.preOrderForEach((num) => {
 //   return num + 2;
