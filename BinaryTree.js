@@ -334,10 +334,10 @@ tree.buildTree();
 
 prettyPrint(tree.root);
 
-console.log(tree.postOrderTraversal());
+console.log(tree.inOrderTraversal());
 
-tree.postOrderForEach((num) => {
-  return num + 7;
-});
+// tree.inOrderForEach((num) => {
+//   return num + 7;
+// });
 
-prettyPrint(tree.root);
+// prettyPrint(tree.root);
