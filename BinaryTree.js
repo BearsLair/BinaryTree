@@ -181,7 +181,7 @@ class Tree {
     this.buildTree();
   }
 
-  postOrderforEach(callback) {
+  postOrderForEach(callback) {
     if (callback == null || typeof callback != "function") {
       throw new Error("Parameter is not a function!");
     }
@@ -289,12 +289,17 @@ class Tree {
 
     let nodes = [];
 
+    // visit root, add it to BEGINNING of node array
+
     nodes.unshift(root.data);
+
+    // visit right side from root recursively, add that node(s) to BEGINNING of node array
 
     if (root.right != null) {
       nodes.unshift(...this.postOrderTraversal(root.right));
     }
 
+    // visit left side from root recursively, add that node(s) to BEGINNING of node array
     if (root.left != null) {
       nodes.unshift(...this.postOrderTraversal(root.left));
     }
@@ -331,8 +336,8 @@ prettyPrint(tree.root);
 
 console.log(tree.postOrderTraversal());
 
-// tree.inOrderForEach((num) => {
-//   return num + 4;
-// });
+tree.postOrderForEach((num) => {
+  return num + 7;
+});
 
-// prettyPrint(tree.root);
+prettyPrint(tree.root);
