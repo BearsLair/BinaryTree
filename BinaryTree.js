@@ -317,8 +317,8 @@ prettyPrint(tree.root);
 
 console.log(tree.inOrderTraversal());
 
-// tree.preOrderForEach((num) => {
-//   return num + 2;
-// });
+tree.inOrderForEach((num) => {
+  return num + 4;
+});
 
-// prettyPrint(tree.root);
+prettyPrint(tree.root);
