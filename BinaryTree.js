@@ -224,85 +224,59 @@ class Tree {
     return this.levelOrderTraversal(children, nodes);
   }
 
-  preOrderTraversal(root = this.root.data, nodes = []) {
-    if (root == null) return;
-
-    nodes.push(root);
-
-    let children = [];
-
-    const currentNode = this.find(root);
-
-    if (currentNode.left != null) {
-      children.push(currentNode.left.data);
-    }
-    if (currentNode.right != null) {
-      children.push(currentNode.right.data);
-
-      children.map((data) => {
-        this.preOrderTraversal(data, nodes);
-      });
-
-      return nodes;
-    }
-  }
-
-  inOrderTraversal(root = this.root) {
-    // Recursive base case
-    if (root.left == null && root.right == null) {
-      return [root.data];
-    }
+  preOrderTraversal(root = this.root) {
+    if (root === null) return;
 
     let nodes = [];
-    let visitLater = [];
-    let current = root.left;
 
-    while (current != null) {
-      visitLater.unshift(current.data);
-      current = current.left;
-    }
-
-    let node = null;
-
-    // Visit left side from root
-    visitLater.map((item) => {
-      nodes.push(item);
-      node = this.find(item);
-      if (node.right != null) {
-        nodes.push(...this.inOrderTraversal(node.right));
-      }
-    });
-
-    // Visit Center (Root)
     nodes.push(root.data);
 
-    // Visit right side from root
+    if (root.left != null) {
+      nodes.push(...this.inOrderTraversal(root.left));
+    }
+
     if (root.right != null) {
       nodes.push(...this.inOrderTraversal(root.right));
     }
+    return nodes;
+  }
 
+  inOrderTraversal(root = this.root) {
+    if (root === null) return;
+
+    let nodes = [];
+
+    if (root.left != null) {
+      nodes.push(...this.inOrderTraversal(root.left));
+    }
+
+    nodes.push(root.data);
+
+    if (root.right != null) {
+      nodes.push(...this.inOrderTraversal(root.right));
+    }
     return nodes;
   }
 
   postOrderTraversal(root = this.root) {
-    if (root == null) return;
+    if (root === null) return;
 
     let nodes = [];
 
-    // visit root, add it to BEGINNING of node array
-
-    nodes.unshift(root.data);
+    // visit left side from root recursively, add that node(s) to BEGINNING of node array
+    if (root.left != null) {
+      nodes.push(...this.postOrderTraversal(root.left));
+    }
 
     // visit right side from root recursively, add that node(s) to BEGINNING of node array
 
     if (root.right != null) {
-      nodes.unshift(...this.postOrderTraversal(root.right));
+      nodes.push(...this.postOrderTraversal(root.right));
     }
 
-    // visit left side from root recursively, add that node(s) to BEGINNING of node array
-    if (root.left != null) {
-      nodes.unshift(...this.postOrderTraversal(root.left));
-    }
+    // visit root, add it to BEGINNING of node array
+
+    nodes.push(root.data);
 
     return nodes;
   }
@@ -334,10 +308,10 @@ tree.buildTree();
 
 prettyPrint(tree.root);
 
-console.log(tree.inOrderTraversal());
+console.log(tree.preOrderTraversal());
 
-// tree.inOrderForEach((num) => {
-//   return num + 7;
-// });
+tree.preOrderForEach((num) => {
+  return num + 7;
+});
 
-// prettyPrint(tree.root);
+prettyPrint(tree.root);
