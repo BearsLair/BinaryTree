@@ -284,7 +284,23 @@ class Tree {
     return nodes;
   }
 
-  postOrderTraversal() {}
+  postOrderTraversal(root = this.root) {
+    if (root == null) return;
+
+    let nodes = [];
+
+    nodes.unshift(root.data);
+
+    if (root.right != null) {
+      nodes.unshift(...this.postOrderTraversal(root.right));
+    }
+
+    if (root.left != null) {
+      nodes.unshift(...this.postOrderTraversal(root.left));
+    }
+
+    return nodes;
+  }
 }
 
 // Function to visualize tree:
@@ -303,22 +319,20 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 // TESTING STUFF
 
-// const tree = new Tree([
-//   3, 9, 7, 18, 15, 25, 6, 29, 32, 1, 3, 5, 19, 4, 23, 32, 17
-// ]);
+// const tree = new Tree([1, 3, 5, 7, 9, 10, 15]);
 
 const tree = new Tree([
-  19, 25, 55, 93, 22, 25, 18, 7, 19, 3, 5, 7, 1, 9, 47, 85, 52, 23,
+  3, 9, 7, 18, 15, 25, 6, 29, 32, 1, 3, 5, 19, 4, 23, 32, 17,
 ]);
 
 tree.buildTree();
 
 prettyPrint(tree.root);
 
-console.log(tree.inOrderTraversal());
+console.log(tree.postOrderTraversal());
 
-tree.inOrderForEach((num) => {
-  return num + 4;
-});
+// tree.inOrderForEach((num) => {
+//   return num + 4;
+// });
 
-prettyPrint(tree.root);
+// prettyPrint(tree.root);
