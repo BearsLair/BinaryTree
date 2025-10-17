@@ -280,6 +280,33 @@ class Tree {
 
     return nodes;
   }
+
+  height(value) {
+    let current = this.root;
+    console.log("current.data: ", current.data);
+
+    // find value
+    while (current.data != value) {
+      console.log(current.data);
+      if (value < current.data) {
+        console.log("go left");
+        current = current.left;
+      } else if (value > current.data) {
+        console.log("go right");
+        current = current.right;
+      }
+    }
+
+    console.log(current);
+
+    };
+  }
+
+  depth(value) {}
+
+  isBalanced() {}
+
+  rebalance() {}
 }
 
 // Function to visualize tree:
@@ -308,10 +335,10 @@ tree.buildTree();
 
 prettyPrint(tree.root);
 
-console.log(tree.preOrderTraversal());
+tree.height(5);
 
-tree.preOrderForEach((num) => {
-  return num + 7;
-});
+// tree.levelOrderForEach((num) => {
+//   return num + 3;
+// });
 
-prettyPrint(tree.root);
+// prettyPrint(tree.root);
