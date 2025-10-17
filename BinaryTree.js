@@ -298,8 +298,6 @@ class Tree {
     }
 
     console.log(current);
-
-    };
   }
 
   depth(value) {}
