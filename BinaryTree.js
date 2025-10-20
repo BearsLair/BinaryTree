@@ -327,7 +327,29 @@ class Tree {
     return measureheight(current);
   }
 
-  depth(value) {}
+  depth(value) {
+    let current = this.root;
+    console.log("current.data: ", current.data);
+    let depth = 0;
+
+    // find value
+    while (current.data != value) {
+      console.log(current.data);
+      if (value < current.data) {
+        console.log("go left");
+        current = current.left;
+        depth++;
+      } else if (value > current.data) {
+        console.log("go right");
+        current = current.right;
+        depth++;
+      }
+    }
+
+    console.log(current.data);
+
+    return depth;
+  }
 
   isBalanced() {}
 
@@ -360,10 +382,12 @@ tree.buildTree();
 
 prettyPrint(tree.root);
 
+tree.insert(10);
+tree.insert(11);
+tree.insert(13);
+
+prettyPrint(tree.root);
+
 console.log(tree.height(5));
 
-// tree.levelOrderForEach((num) => {
-//   return num + 3;
-// });
-
-// prettyPrint(tree.root);
+console.log(tree.depth(10));
