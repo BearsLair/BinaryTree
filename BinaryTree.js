@@ -297,7 +297,34 @@ class Tree {
       }
     }
 
-    console.log(current);
+    console.log(current.data);
+
+    const measureheight = (current, height = 0) => {
+      if (current.left === null && current.right === null) {
+        return height;
+      }
+
+      let left = 0;
+      let right = 0;
+
+      if (current.left != null) {
+        left = measureheight(current.left, height++);
+      }
+
+      if (current.right != null) {
+        right = measureheight(current.right, height++);
+      }
+
+      if (left > right) {
+        return left;
+      } else if (left < right) {
+        return right;
+      } else if (left === right) {
+        return left;
+      }
+    };
+
+    return measureheight(current);
   }
 
   depth(value) {}
@@ -333,7 +360,7 @@ tree.buildTree();
 
 prettyPrint(tree.root);
 
-tree.height(5);
+console.log(tree.height(5));
 
 // tree.levelOrderForEach((num) => {
 //   return num + 3;
