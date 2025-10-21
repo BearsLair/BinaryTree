@@ -359,7 +359,9 @@ class Tree {
 
   isBalanced() {}
 
-  rebalance() {}
+  rebalance() {
+    this.buildTree();
+  }
 }
 
 // Function to visualize tree:
@@ -389,5 +391,9 @@ tree.buildTree();
 tree.insert(10);
 tree.insert(11);
 tree.insert(13);
+
+prettyPrint(tree.root);
+
+tree.rebalance();
 
 prettyPrint(tree.root);
