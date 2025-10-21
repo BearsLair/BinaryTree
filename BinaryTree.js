@@ -34,6 +34,7 @@ class Tree {
   insert(value) {
     // Create new leaf node
     const newValue = new Node(value);
+    this.array.push(value);
     let current = this.root;
     let parent = null;
 
@@ -81,7 +82,12 @@ class Tree {
       return this.root.data;
     }
 
-    // Traverse tree to find parent node of node to be deleted
+    // Remove value from this.array
+    const index = this.array.indexOf(value);
+    this.array.splice(index, 1);
+
+    // Traverse tree to find parent node of node to be deleted (if value is not root)
+
     while (current.data != value) {
       parent = current;
       if (value < current.data) {
@@ -380,14 +386,8 @@ const tree = new Tree([
 
 tree.buildTree();
 
-prettyPrint(tree.root);
-
 tree.insert(10);
 tree.insert(11);
 tree.insert(13);
 
 prettyPrint(tree.root);
-
-console.log(tree.height(5));
-
-console.log(tree.depth(10));
