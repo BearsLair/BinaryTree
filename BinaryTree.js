@@ -357,7 +357,39 @@ class Tree {
     return depth;
   }
 
-  isBalanced() {}
+  isBalanced() {
+    let leftSideBalanced = false;
+    let rightSideBalanced = false;
+
+    const bothSidesBalanced = (current = this.root, height = 0) => {
+      if (current.left === null && current.right === null) return height;
+
+      let left = 0;
+      let right = 0;
+
+      if (current.left != null) {
+        left = bothSidesBalanced(current.left, height++);
+      }
+
+      if (current.right != null) {
+        right = bothSidesBalanced(current.right, height++);
+      }
+
+      if (left - right === 1 || left - right === -1) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    let leftAndRightBalanced = bothSidesBalanced();
+
+    if (leftAndRightBalanced === false) {
+      return "not balanced";
+    } else {
+      return "is balanced";
+    }
+  }
 
   rebalance() {
     this.buildTree();
@@ -394,6 +426,10 @@ tree.insert(13);
 
 prettyPrint(tree.root);
 
+console.log(tree.isBalanced());
+
 tree.rebalance();
+
+console.log(tree.isBalanced());
 
 prettyPrint(tree.root);
