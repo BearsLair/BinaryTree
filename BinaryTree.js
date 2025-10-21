@@ -289,7 +289,6 @@ class Tree {
 
   height(value) {
     let current = this.root;
-    console.log("current.data: ", current.data);
 
     // find value
     while (current.data != value) {
@@ -349,6 +348,7 @@ class Tree {
         console.log("go right");
         current = current.right;
         depth++;
+        false;
       }
     }
 
@@ -358,12 +358,10 @@ class Tree {
   }
 
   isBalanced() {
-    let leftSideBalanced = false;
-    let rightSideBalanced = false;
-
     const bothSidesBalanced = (current = this.root, height = 0) => {
-      if (current.left === null && current.right === null) return height;
-
+      if (current.left === null && current.right === null) {
+        return height;
+      }
       let left = 0;
       let right = 0;
 
@@ -375,19 +373,41 @@ class Tree {
         right = bothSidesBalanced(current.right, height++);
       }
 
-      if (left - right === 1 || left - right === -1) {
-        return true;
-      } else {
-        return false;
-      }
+      return left - right;
     };
 
     let leftAndRightBalanced = bothSidesBalanced();
+    let leftSideBalanced = bothSidesBalanced(this.root.left);
+    let rightSideBalanced = bothSidesBalanced(this.root.right);
+
+    console.log(leftAndRightBalanced);
+    console.log(leftSideBalanced);
+    console.log(rightSideBalanced);
+
+    if (leftAndRightBalanced === 1 || leftAndRightBalanced === -1) {
+      leftAndRightBalanced === true;
+    } else {
+      leftAndRightBalanced = false;
+    }
+
+    if (leftSideBalanced === 1 || leftSideBalanced === -1) {
+      leftSideBalanced === true;
+    } else {
+      leftSideBalanced = false;
+    }
+
+    if (rightSideBalanced === 1 || rightSideBalanced === -1) {
+      rightSideBalanced === true;
+    } else {
+      rightSideBalanced = false;
+    }
 
     if (leftAndRightBalanced === false) {
       return "not balanced";
-    } else {
+    } else if (leftSideBalanced === true && rightSideBalanced === true) {
       return "is balanced";
+    } else {
+      return "not balanced";
     }
   }
 
@@ -420,16 +440,18 @@ const tree = new Tree([
 
 tree.buildTree();
 
+console.log("tree with insertions....");
+
 tree.insert(10);
 tree.insert(11);
 tree.insert(13);
 
 prettyPrint(tree.root);
 
-console.log(tree.isBalanced());
+console.log("shouldn't be balanced after insertions: ", tree.isBalanced());
 
 tree.rebalance();
 
-console.log(tree.isBalanced());
-
 prettyPrint(tree.root);
+
+console.log("tree should be balanced after reblance: ", tree.isBalanced());
