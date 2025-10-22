@@ -358,56 +358,26 @@ class Tree {
   }
 
   isBalanced() {
-    const bothSidesBalanced = (current = this.root, height = 0) => {
-      if (current.left === null && current.right === null) {
-        return height;
-      }
-      let left = 0;
-      let right = 0;
+    const maxHeight = (node) => {
+      if (node === null) return 0;
 
-      if (current.left != null) {
-        left = bothSidesBalanced(current.left, height++);
-      }
-
-      if (current.right != null) {
-        right = bothSidesBalanced(current.right, height++);
-      }
-
-      return left - right;
+      return 1 + Math.max(maxHeight(node.left), maxHeight(node.right));
     };
 
-    let leftAndRightBalanced = bothSidesBalanced();
-    let leftSideBalanced = bothSidesBalanced(this.root.left);
-    let rightSideBalanced = bothSidesBalanced(this.root.right);
+    console.log("Max height left of root: ", maxHeight(this.root.left));
+    console.log("Max height right of root: ", maxHeight(this.root.right));
 
-    console.log(leftAndRightBalanced);
-    console.log(leftSideBalanced);
-    console.log(rightSideBalanced);
+    // Check left and right of root for balance
+    const leftHeight = maxHeight(this.root.left);
+    const rightHeight = maxHeight(this.root.right);
 
-    if (leftAndRightBalanced === 1 || leftAndRightBalanced === -1) {
-      leftAndRightBalanced === true;
+    if (this.root.left === null && this.root.right == null) {
+      return true;
+    } else if (Math.abs(leftHeight - rightHeight) > 1) {
+      return false;
     } else {
-      leftAndRightBalanced = false;
-    }
-
-    if (leftSideBalanced === 1 || leftSideBalanced === -1) {
-      leftSideBalanced === true;
-    } else {
-      leftSideBalanced = false;
-    }
-
-    if (rightSideBalanced === 1 || rightSideBalanced === -1) {
-      rightSideBalanced === true;
-    } else {
-      rightSideBalanced = false;
-    }
-
-    if (leftAndRightBalanced === false) {
-      return "not balanced";
-    } else if (leftSideBalanced === true && rightSideBalanced === true) {
-      return "is balanced";
-    } else {
-      return "not balanced";
+      // For testing...remove later.
+      return true;
     }
   }
 
@@ -448,10 +418,10 @@ tree.insert(13);
 
 prettyPrint(tree.root);
 
-console.log("shouldn't be balanced after insertions: ", tree.isBalanced());
+console.log(tree.isBalanced());
 
 tree.rebalance();
 
 prettyPrint(tree.root);
 
-console.log("tree should be balanced after reblance: ", tree.isBalanced());
+console.log(tree.isBalanced());
