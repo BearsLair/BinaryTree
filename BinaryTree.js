@@ -375,9 +375,6 @@ class Tree {
       return true;
     } else if (Math.abs(leftHeight - rightHeight) > 1) {
       return false;
-    } else {
-      // For testing...remove later.
-      return true;
     }
   }
 
