@@ -362,7 +362,7 @@ class Tree {
     // Check the height of the left and right of root
     const leftHeight = maxHeight(this.root.left);
     const rightHeight = maxHeight(this.root.right);
-    const maxTreeHeight = leftHeight;
+    let maxTreeHeight = leftHeight;
 
     if (leftHeight < rightHeight) {
       maxTreeHeight = rightHeight;
@@ -424,26 +424,47 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 // TESTING STUFF
 
-// const tree = new Tree([1, 3, 5, 7, 9, 10, 15]);
-
 const tree = new Tree([
   3, 9, 7, 18, 15, 25, 6, 29, 32, 1, 3, 5, 19, 4, 23, 32, 17,
 ]);
 
 tree.buildTree();
 
-console.log("tree with insertions....");
-
-tree.insert(10);
-tree.insert(11);
-tree.insert(13);
-
+console.log("Initial tree: ");
 prettyPrint(tree.root);
 
-console.log(tree.isBalanced());
+console.log("Is it balanced?: ", tree.isBalanced());
+
+console.log("-------------------");
+
+console.log("Elements in level order: ", tree.levelOrderTraversal());
+console.log("Elements in pre-order: ", tree.preOrderTraversal());
+console.log("Elements in post-order: ", tree.postOrderTraversal());
+console.log("Elements in in-order: ", tree.inOrderTraversal());
+
+console.log("-------------------");
+
+tree.insert(122);
+tree.insert(133);
+tree.insert(145);
+tree.insert(218);
+tree.insert(300);
+tree.insert(312);
+
+console.log("Tree after insertions: ");
+prettyPrint(tree.root);
+console.log("Is it balanced?: ", tree.isBalanced());
+
+console.log("-------------------");
 
 tree.rebalance();
-
+console.log("Tree rebalanced: ");
 prettyPrint(tree.root);
+console.log("Is it balanced?: ", tree.isBalanced());
 
-console.log("Tree is balanced: ", tree.isBalanced());
+console.log("-------------------");
+
+console.log("Elements in level order: ", tree.levelOrderTraversal());
+console.log("Elements in pre-order: ", tree.preOrderTraversal());
+console.log("Elements in post-order: ", tree.postOrderTraversal());
+console.log("Elements in in-order: ", tree.inOrderTraversal());
