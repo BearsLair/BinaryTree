@@ -292,17 +292,12 @@ class Tree {
 
     // find value
     while (current.data != value) {
-      console.log(current.data);
       if (value < current.data) {
-        console.log("go left");
         current = current.left;
       } else if (value > current.data) {
-        console.log("go right");
         current = current.right;
       }
     }
-
-    console.log(current.data);
 
     const measureheight = (current, height = 0) => {
       if (current.left === null && current.right === null) {
@@ -364,18 +359,48 @@ class Tree {
       return 1 + Math.max(maxHeight(node.left), maxHeight(node.right));
     };
 
-    console.log("Max height left of root: ", maxHeight(this.root.left));
-    console.log("Max height right of root: ", maxHeight(this.root.right));
-
-    // Check left and right of root for balance
+    // Check the height of the left and right of root
     const leftHeight = maxHeight(this.root.left);
     const rightHeight = maxHeight(this.root.right);
+    const maxTreeHeight = leftHeight;
+
+    if (leftHeight < rightHeight) {
+      maxTreeHeight = rightHeight;
+    }
 
     if (this.root.left === null && this.root.right == null) {
       return true;
     } else if (Math.abs(leftHeight - rightHeight) > 1) {
       return false;
     }
+
+    // Check all leaf nodes at bottom of tree for balance
+    const checkAllLeafNodes = (root = this.root) => {
+      if (root === null) return;
+
+      let nodes = [];
+
+      if (root.left === null && root.right === null) nodes.push(root.data);
+
+      if (root.left != null) {
+        nodes.push(...checkAllLeafNodes(root.left));
+      }
+
+      if (root.right != null) {
+        nodes.push(...checkAllLeafNodes(root.right));
+      }
+      return nodes;
+    };
+
+    const leafNodes = checkAllLeafNodes();
+
+    for (let i = 0; i < leafNodes.length; i++) {
+      if (maxHeight - this.height(leafNodes[i]) > 1) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   rebalance() {
@@ -421,4 +446,4 @@ tree.rebalance();
 
 prettyPrint(tree.root);
 
-console.log(tree.isBalanced());
+console.log("Tree is balanced: ", tree.isBalanced());
